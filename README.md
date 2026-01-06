@@ -1,3 +1,3 @@
-# webpack-template-top
+# weather-app-top
 
-A template for sites created using webpack through The Odin Project
+A weather app created through The Odin Project.
