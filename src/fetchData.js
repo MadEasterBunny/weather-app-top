@@ -1,9 +1,10 @@
 import { weatherData } from "./processData";
+import { displayErrorMessage, removeErrorMessage } from "./render";
 
 const API_KEY = "9LVCTH2XK3KF5ZJH6Q57WFAWW";
 
-export const getData = async () => {
-    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/detroit?unitGroup=metric&key=${API_KEY}&contentType=json`;
+export const getData = async (location) => {
+    const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${API_KEY}&contentType=json`;
     try {
         const response = await fetch(url);
         if(!response.ok) {
@@ -13,5 +14,6 @@ export const getData = async () => {
         weatherData(data);
     } catch (err) {
         console.log(err);
+        alert("Must enter a valid location");
     }
 }
