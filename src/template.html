@@ -7,13 +7,23 @@
 </head>
 <body>
     <div class="container">
-        <div>
-            <form action="">
-                <input type="text" id="location" placeholder="Enter a location">
-                <button>Submit</button>
-            </form>
+        <div class="weather-container">
+            <div class="input-container">
+                <div>
+                    <form action="">
+                        <input type="text" id="location" placeholder="Enter a location">
+                        <button>Submit</button>
+                    </form>
+                </div>
+                <div>
+                    <select id="temp-scale">
+                        <option value="celsius" selected>°C</option>
+                        <option value="fahrenheit">°F</option>
+                    </select>
+                </div>
+            </div>
+            <div id="weather"></div>
         </div>
-        <div id="weather"></div>
     </div>
 </body>
 </html>
