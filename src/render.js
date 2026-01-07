@@ -1,5 +1,6 @@
 import { getData } from "./fetchData";
 import { weatherData } from "./processData";
+import { capitalizeWords } from "./utils";
 
 const weather = document.querySelector("#weather");
 const imagesContext = require.context('./icons', false, /\.png$/);
@@ -10,7 +11,6 @@ imagesContext.keys().forEach((item) => {
 })
 
 export const renderWeather = async (location) => {
-    console.log(images);
     const data = await getData(location);
 
     if(data) {
@@ -25,7 +25,7 @@ export const renderWeather = async (location) => {
         weather.appendChild(img);
 
         const location = document.createElement("h2");
-        location.textContent = address;
+        location.textContent = capitalizeWords(address);
         weather.appendChild(location);
 
         //Need to create a check that changes the °C and °F based on which is set
