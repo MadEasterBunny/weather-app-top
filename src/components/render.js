@@ -1,10 +1,10 @@
-import { getData } from "./fetchData";
-import { weatherData } from "./processData";
-import { weatherContainer } from "./elements";
-import images from "./assets";
+import { getData } from "../services/fetchData";
+import { weatherData } from "../services/processData";
+import { weatherContainer } from "../utils/elements";
+import images from "../assets/assets";
 import { Droplets, Wind } from "lucide-static";
-import { showSpinner, hideSpinner } from "./spinner";
-import { capitalizeWords } from "./utils";
+import { showSpinner, hideSpinner } from "../components/spinner";
+import { capitalizeWords } from "../utils/helper";
 
 const formatWeatherDisplay = (weatherObj, unitGroup) => {
     const { address, humidity, icon, temp, windspeed } = weatherObj;

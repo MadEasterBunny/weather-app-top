@@ -1,6 +1,6 @@
-import { state } from "./state";
-import { renderWeather } from "./render";
-import { form, input, tempScaleSelect } from "./elements";
+import { state } from "./utils/state";
+import { renderWeather } from "./components/render";
+import { form, input, tempScaleSelect } from "./utils/elements";
 
 const handleFormSubmit = (e) => {
     e.preventDefault();

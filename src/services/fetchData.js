@@ -1,4 +1,4 @@
-import { displayErrorMsg } from "./render";
+import { displayErrorMsg } from "../components/render";
 
 const API_KEY = "9LVCTH2XK3KF5ZJH6Q57WFAWW";
 

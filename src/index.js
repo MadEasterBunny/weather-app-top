@@ -1,6 +1,6 @@
 import "./styles.css";
-import { state } from "./state";
-import { renderWeather } from "./render";
+import { state } from "./utils/state";
+import { renderWeather } from "./components/render";
 import { initEventListeners } from "./events";
 
 initEventListeners();
