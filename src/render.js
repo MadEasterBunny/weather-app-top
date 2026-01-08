@@ -22,71 +22,86 @@ const spinner = new Spinner({
     left: '50%',
 });
 
+const formatWeatherDisplay = (weatherObj, unitGroup) => {
+    const { address, humidity, icon, temp, windspeed } = weatherObj;
+
+    const weatherDetails = [
+        {
+            element: "img",
+            props: { src: images[icon] },
+
+        },
+        {
+            element: "h2",
+            props: { textContent: capitalizeWords(address) },
+
+        },
+        {
+            element: "p",
+            props: { textContent: `${temp} ${unitGroup === "us" ? "°F" : "°C"}` },
+
+        },
+    ];
+
+    const statsDetails = [
+        {
+            icon: Droplets,
+            label: "Humidity",
+            value: `${humidity}%`,
+        },
+        {
+            icon: Wind,
+            label: "Wind Speed",
+            value: `${windspeed} ${unitGroup === "us" ? "mph" : "km/h"}`,
+        },
+    ];
+
+    return { weatherDetails, statsDetails };
+    
+}
+
+const createWeatherList = (details) => {
+    const container = document.createElement("div");
+    container.classList.add("list-container");
+
+    details.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("list-item");
+        div.innerHTML = `
+            <div class="icon-title-wrapper">
+                ${item.icon}
+                <p>${item.label}</p>
+            </div>
+            <p>${item.value}</p>`;
+        container.appendChild(div);
+    });
+
+    return container;
+}
+
+export const displayErrorMsg = (msg) => {
+    weather.innerHTML = msg;
+}
+
 export const renderWeather = async (location, unitGroup) => {
     spinner.spin(target);
     weather.innerHTML = "";
     
     try {
         const data = await getData(location, unitGroup);
+        if(!data) return;
 
-        if(data) {
-            const weatherObj = await weatherData(data);
-            const { address, humidity, icon, temp, windspeed } = weatherObj;
-            const locationDetails = [
-                {
-                    element: "img",
-                    props: { src: images[icon] },
+        const weatherObj = await weatherData(data);
 
-                },
-                {
-                    element: "h2",
-                    props: { textContent: capitalizeWords(address) },
+        const { weatherDetails, statsDetails } = formatWeatherDisplay(weatherObj, unitGroup);
 
-                },
-                {
-                    element: "p",
-                    props: { textContent: `${temp} ${unitGroup === "us" ? "°F" : "°C"}` },
+        weatherDetails.forEach(detail => {
+            const el = document.createElement(detail.element);
+            Object.assign(el, detail.props);
+            weather.appendChild(el);
+        });
 
-                },
-            ];
-            const weatherDetails = [
-                {
-                    icon: Droplets,
-                    label: "Humidity",
-                    value: humidity,
-                    unit: "%",
-                },
-                {
-                    icon: Wind,
-                    label: "Wind Speed",
-                    value: windspeed,
-                    unit: unitGroup === "us" ? "mph" : "km/h",  
-                }
-            ];
-    
-            locationDetails.forEach(detail => {
-                const el = document.createElement(detail.element);
-                Object.assign(el, detail.props);
-                weather.appendChild(el);
-            });
-    
-            const listContainer = document.createElement("div");
-            listContainer.classList.add("list-container");
-    
-            weatherDetails.forEach(item => {
-                const div = document.createElement("div");
-                div.classList.add("list-item");
-                div.innerHTML = `
-                <div class="icon-title-wrapper">
-                ${item.icon}
-                <p>${item.label}</p>
-                </div>
-                <p>${item.value}${item.unit}</p>`;
-                listContainer.appendChild(div);
-            });
-    
-            weather.appendChild(listContainer);
-        }
+        weather.appendChild(createWeatherList(statsDetails));
     } catch (error) {
         console.error("Failed to load weather:", error);
         displayErrorMsg("<p>Error loading data.</p>");
@@ -95,8 +110,3 @@ export const renderWeather = async (location, unitGroup) => {
     }
     
 }
-
-export const displayErrorMsg = (msg) => {
-    weather.innerHTML = msg;
-}
-
