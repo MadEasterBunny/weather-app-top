@@ -1,4 +1,4 @@
-import { weatherData } from "./processData";
+import { displayErrorMsg } from "./render";
 
 const API_KEY = "9LVCTH2XK3KF5ZJH6Q57WFAWW";
 
@@ -13,6 +13,6 @@ export const getData = async (location, unitGroup) => {
         return data;
     } catch (err) {
         console.log(err);
-        alert("Must enter a valid location");
+        displayErrorMsg("Must enter a valid location");
     }
 }
