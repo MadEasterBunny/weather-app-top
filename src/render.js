@@ -1,26 +1,10 @@
 import { getData } from "./fetchData";
 import { weatherData } from "./processData";
-import { capitalizeWords } from "./utils";
+import { weatherContainer } from "./elements";
+import images from "./assets";
 import { Droplets, Wind } from "lucide-static";
-import { Spinner } from "spin.js";
-import 'spin.js/spin.css';
-
-const weather = document.querySelector("#weather");
-const imagesContext = require.context('./icons', false, /\.png$/);
-const images = {};
-imagesContext.keys().forEach((item) => {
-    const name = item.replace('./', '').replace('.png', '');
-    images[name] = imagesContext(item);
-});
-
-const target = document.querySelector("#spinner-container");
-const spinner = new Spinner({ 
-    color: '#fff',
-    lines: 12,
-    position: "absolute",
-    top: '50%',
-    left: '50%',
-});
+import { showSpinner, hideSpinner } from "./spinner";
+import { capitalizeWords } from "./utils";
 
 const formatWeatherDisplay = (weatherObj, unitGroup) => {
     const { address, humidity, icon, temp, windspeed } = weatherObj;
@@ -84,8 +68,8 @@ export const displayErrorMsg = (msg) => {
 }
 
 export const renderWeather = async (location, unitGroup) => {
-    spinner.spin(target);
-    weather.innerHTML = "";
+    showSpinner();
+    weatherContainer.innerHTML = "";
     
     try {
         const data = await getData(location, unitGroup);
@@ -98,15 +82,15 @@ export const renderWeather = async (location, unitGroup) => {
         weatherDetails.forEach(detail => {
             const el = document.createElement(detail.element);
             Object.assign(el, detail.props);
-            weather.appendChild(el);
+            weatherContainer.appendChild(el);
         });
 
-        weather.appendChild(createWeatherList(statsDetails));
+        weatherContainer.appendChild(createWeatherList(statsDetails));
     } catch (error) {
         console.error("Failed to load weather:", error);
         displayErrorMsg("<p>Error loading data.</p>");
     } finally {
-        spinner.stop();
+        hideSpinner();
     }
     
 }
