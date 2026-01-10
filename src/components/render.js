@@ -1,6 +1,7 @@
 import { getData } from "../services/fetchData";
 import { weatherData } from "../services/processData";
 import { weatherContainer } from "../utils/elements";
+import { t } from "../utils/translations";
 import { weatherIcons } from "../assets/assets";
 import { Droplets, Wind } from "lucide-static";
 import { showSpinner, hideSpinner } from "../components/spinner";
@@ -39,12 +40,12 @@ const formatWeatherDisplay = (weatherObj, unitGroup) => {
     const statsDetails = [
         {
             icon: Droplets,
-            label: "Humidity",
+            label: t("weatherDetails.humidity"),
             value: `${humidity}%`,
         },
         {
             icon: Wind,
-            label: "Wind Speed",
+            label: t("weatherDetails.windspeed"),
             value: `${windspeed} ${unitGroup === "us" ? "mph" : "km/h"}`,
         },
     ];

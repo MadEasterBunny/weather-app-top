@@ -143,6 +143,10 @@ select {
   padding: 15px;
 }
 
+#weather > p:last-child {
+  margin-top: 15px;
+}
+
 .list-item {
   min-width: 300px;
   display: flex;

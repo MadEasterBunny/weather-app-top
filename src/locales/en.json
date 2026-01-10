@@ -1,0 +1,6 @@
+{
+    "weatherDetails": {
+        "humidity": "Humidity",
+        "windspeed": "Wind Speed"
+    }
+}

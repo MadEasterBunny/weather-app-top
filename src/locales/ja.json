@@ -1,0 +1,6 @@
+{
+    "weatherDetails": {
+        "humidity": "湿度",
+        "windspeed": "風速"
+    }
+}
