@@ -5,4 +5,4 @@ import { initEventListeners } from "./events";
 
 initEventListeners();
 
-renderWeather(state.currentLocation, state.currentUnitGroup);
+renderWeather(state.currentLocation, state.currentUnitGroup, state.currentLocale);

@@ -1,19 +1,23 @@
 import { getData } from "../services/fetchData";
 import { weatherData } from "../services/processData";
 import { weatherContainer } from "../utils/elements";
-import images from "../assets/assets";
+import { weatherIcons } from "../assets/assets";
 import { Droplets, Wind } from "lucide-static";
 import { showSpinner, hideSpinner } from "../components/spinner";
 import { capitalizeWords } from "../utils/helper";
 
 const formatWeatherDisplay = (weatherObj, unitGroup) => {
-    const { address, humidity, icon, temp, windspeed } = weatherObj;
+    const { address, conditions, humidity, icon, temp, windspeed, description } = weatherObj;
 
     const weatherDetails = [
         {
             element: "img",
-            props: { src: images[icon] },
+            props: { src: weatherIcons[icon] },
 
+        },
+        {
+            element: "p",
+            props: { textContent: conditions },
         },
         {
             element: "h2",
@@ -23,6 +27,11 @@ const formatWeatherDisplay = (weatherObj, unitGroup) => {
         {
             element: "p",
             props: { textContent: `${temp} ${unitGroup === "us" ? "°F" : "°C"}` },
+
+        },
+        {
+            element: "p",
+            props: { textContent: description },
 
         },
     ];
@@ -67,12 +76,12 @@ export const displayErrorMsg = (msg) => {
     weather.innerHTML = msg;
 }
 
-export const renderWeather = async (location, unitGroup) => {
+export const renderWeather = async (location, unitGroup, locale) => {
     showSpinner();
     weatherContainer.innerHTML = "";
     
     try {
-        const data = await getData(location, unitGroup);
+        const data = await getData(location, unitGroup, locale);
         if(!data) return;
 
         const weatherObj = await weatherData(data);

@@ -1,12 +1,14 @@
 export const weatherData = (data) => {
-    const { address, currentConditions } = data;
-    const { humidity, icon, temp, windspeed } = currentConditions;
+    const { address, currentConditions, description } = data;
+    const { conditions, humidity, icon, temp, windspeed } = currentConditions;
     const weatherData = {
         address,
+        conditions,
         humidity,
         icon,
         temp,
-        windspeed
+        windspeed,
+        description
     }  
     return weatherData;
 }

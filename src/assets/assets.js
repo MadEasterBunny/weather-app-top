@@ -1,8 +1,6 @@
-const imagesContext = require.context('./icons/weather', false, /\.png$/);
-const images = {};
-imagesContext.keys().forEach((item) => {
+const weatherIconsContext = require.context('./icons/weather', false, /\.png$/);
+export const weatherIcons = {};
+weatherIconsContext.keys().forEach((item) => {
     const name = item.replace('./', '').replace('.png', '');
-    images[name] = imagesContext(item);
+    weatherIcons[name] = weatherIconsContext(item);
 });
-
-export default images;
