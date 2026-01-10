@@ -3,10 +3,6 @@
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
-:root {
-  --blue-text: #2c2ccf;
-}
-
 *,
 *::before,
 *::after {
@@ -133,8 +129,8 @@ button svg {
 }
 
 select {
-  color: var(--blue-text);
-  border: 1px solid var(--blue-text);
+  color: #2c2ccf;
+  border: 1px solid #2c2ccf;
 }
 
 #weather {
