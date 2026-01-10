@@ -3,6 +3,10 @@
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
+:root {
+  --blue-text: #2c2ccf;
+}
+
 *,
 *::before,
 *::after {
@@ -129,8 +133,8 @@ button svg {
 }
 
 select {
-  color: #00f;
-  border: none;
+  color: var(--blue-text);
+  border: 1px solid var(--blue-text);
 }
 
 #weather {
@@ -143,8 +147,14 @@ select {
   padding: 15px;
 }
 
-#weather > p:last-child {
-  margin-top: 15px;
+#weather > p:first-of-type {
+  font-size: 28px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)
+}
+
+#weather > p:last-of-type {
+  text-align: center;
+  margin: 15px 0;
 }
 
 .list-item {

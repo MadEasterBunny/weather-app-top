@@ -12,23 +12,23 @@ const formatWeatherDisplay = (weatherObj, unitGroup) => {
 
     const weatherDetails = [
         {
+            element: "h2",
+            props: { textContent: capitalizeWords(address) },
+
+        },
+        {
             element: "img",
             props: { src: weatherIcons[icon] },
 
         },
         {
             element: "p",
-            props: { textContent: conditions },
-        },
-        {
-            element: "h2",
-            props: { textContent: capitalizeWords(address) },
+            props: { textContent: `${temp} ${unitGroup === "us" ? "°F" : "°C"}` },
 
         },
         {
             element: "p",
-            props: { textContent: `${temp} ${unitGroup === "us" ? "°F" : "°C"}` },
-
+            props: { textContent: conditions },
         },
         {
             element: "p",
